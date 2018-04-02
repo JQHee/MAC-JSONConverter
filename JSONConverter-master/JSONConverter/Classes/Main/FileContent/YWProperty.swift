@@ -132,7 +132,11 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [String]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [String]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.stringValue})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.stringValue})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({$0.stringValue})\n"
+                #endif
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [String]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
@@ -145,7 +149,11 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [Int]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [Int]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.intValue})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.intValue})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({$0.intValue})\n"
+                #endif
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [Int]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
@@ -158,7 +166,11 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [Float]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [Float]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.floatValue})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.floatValue})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({$0.floatValue})\n"
+                #endif
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [Float]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
@@ -171,7 +183,11 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [Double]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [Double]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.doubleValue})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.doubleValue})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({$0.doubleValue})\n"
+                #endif
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [Double]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
@@ -184,7 +200,11 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [Bool]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [Bool]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.boolValue})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({$0.boolValue})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({$0.boolValue})\n"
+                #endif
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [Bool]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
@@ -197,7 +217,12 @@ class YWProperty {
                 propertyStr = "\tvar \(propertyKey) = [\(propertyKey.className(withPrefix: prefixStr))]()\n"
             case .SwiftyJSON:
                 propertyStr = "\tvar \(propertyKey) = [\(propertyKey.className(withPrefix: prefixStr))]()\n"
-                swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({ \(propertyKey.className(withPrefix: prefixStr))(json: $0)})\n"
+                #if swift(>=4.1)
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.compactMap({ \(propertyKey.className(withPrefix: prefixStr))(json: $0)})\n"
+                #else
+                    swiftInitStr = "\t\t\(propertyKey) = json[\"\(propertyKey)\"].arrayValue.flatMap({ \(propertyKey.className(withPrefix: prefixStr))(json: $0)})\n"
+                #endif
+
             case .ObjectMapper:
                 propertyStr = "\tvar \(propertyKey) = [\(propertyKey.className(withPrefix: prefixStr))]()\n"
                 swiftInitStr = "\t\t\(propertyKey)\(currentMapperSpace)<- map[\"\(propertyKey)\"]\n"
