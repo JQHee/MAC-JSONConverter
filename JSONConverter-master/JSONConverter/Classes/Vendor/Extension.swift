@@ -19,8 +19,15 @@ extension String {
     
     func lowercaseFirstChar() -> String {
         if count > 0{
-            let range = Range(startIndex..<index(startIndex, offsetBy: 1))
+            let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
             let firstLowerChar = self[range].lowercased()
+//            #if swift(>=4.2)
+//            let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
+//            let firstLowerChar = self[range].lowercased()
+//            #else
+//            let range = Range(startIndex..<index(startIndex, offsetBy: 1))
+//            let firstLowerChar = self[range].lowercased()
+//            #endif
             return replacingCharacters(in: range, with: firstLowerChar)
         }else {
             return self
@@ -29,8 +36,15 @@ extension String {
     
     func uppercaseFirstChar() -> String {
         if count > 0{
-            let range = Range(startIndex..<index(startIndex, offsetBy: 1))
+            let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
             let firstLowerChar = self[range].uppercased()
+//            #if swift(>=4.2)
+//            let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
+//            let firstLowerChar = self[range].uppercased()
+//            #else
+//            let range = Range(startIndex..<index(startIndex, offsetBy: 1))
+//            let firstLowerChar = self[range].uppercased()
+//            #endif
             return replacingCharacters(in: range, with: firstLowerChar)
         }else {
             return self
@@ -38,12 +52,24 @@ extension String {
     }
     
     mutating func removeLastChar() {
-        let range = Range(self.index(endIndex, offsetBy: -1)..<self.endIndex)
+        let range = index(endIndex, offsetBy: -1)..<index(endIndex, offsetBy: 0)
+//
+//        #if swift(>=4.2)
+//        let range = index(endIndex, offsetBy: -1)..<index(endIndex, offsetBy: 0)
+//        #else
+//        let range = Range(self.index(endIndex, offsetBy: -1)..<self.endIndex)
+//        #endif
         self.removeSubrange(range)
     }
     
     mutating func removeFistChar() {
-        let range = Range(self.startIndex..<self.index(startIndex, offsetBy: 1))
+        let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
+//
+//        #if swift(>=4.2)
+//        let range = index(startIndex, offsetBy: 0)..<index(startIndex, offsetBy: 1)
+//        #else
+//        let range = Range(self.startIndex..<self.index(startIndex, offsetBy: 1))
+//        #endif
         self.removeSubrange(range)
     }
 

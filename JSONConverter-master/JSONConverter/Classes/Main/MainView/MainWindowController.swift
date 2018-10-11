@@ -19,9 +19,13 @@ class MainWindowController: NSWindowController {
         super.windowDidLoad()
         contentViewController = mainViewController
     }
-    
     override var windowNibName: NSNib.Name? {
+        #if swift(>=4.2)
+        return NSNib.Name.init("MainWindowController")
+        #elseif swift(>=4.0)
         return NSNib.Name(rawValue: "MainWindowController")
+        #else
+        return NSNib.Name.init("MainWindowController")
+        #endif
     }
-    
 }

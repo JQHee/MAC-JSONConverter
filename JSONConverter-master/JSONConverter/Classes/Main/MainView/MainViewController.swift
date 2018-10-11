@@ -90,7 +90,11 @@ class MainViewController: NSViewController {
     }
     
     @IBAction func supportMeAction(_ sender: NSButton) {
+        #if swift(>=4.0)
         NSWorkspace.shared.open(URL(string: "http://devyao.com/about/")!)
+        #else
+        NSWorkspace.shared().open(URL(string: "http://devyao.com/about/")!)
+        #endif
     }
     
     @IBAction func converBtnAction(_ sender: NSButton) {
